@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer } from 'react';
 
 const containerStyle = {
     border: '1px solid silver',
@@ -36,18 +36,30 @@ const ProgressBar = ({progress}) => {
     );
 };
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_DATA':
+      return {
+        ...state,
+        finalResult: [...state.finalResult, action.payload]
+      }
+  }
+}
+
 
 const App = () => {
+
+  const [state, dispatch] = useReducer(reducer, {finalResult: []});
+
   const [progress, setProgress] = useState(0);
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState([]);
-  const [finalResult, setFinalResult] = useState([]);
 
   useEffect(() => {
     setProgress(Math.round((100*page)/6));
   }, [page])
 
-  const finalResultMap = finalResult.map(result => result + ' ');
+  const finalResultMap = state.finalResult.map(result => result + ' ');
   
 
   const nextPage = () => {
@@ -55,11 +67,12 @@ const App = () => {
     if(progress !== 100 && progress < 100 && page !== 6) {
       setPage(page+1);
       
-      // mudar isto para o useeffect para inserir e remover por filter
-      setFinalResult(finalResult => [...finalResult, formData]);
+      dispatch({
+        type: 'ADD_DATA',
+        payload: formData
+      })
       
     }
-    console.log(finalResult);
     
   }
 
