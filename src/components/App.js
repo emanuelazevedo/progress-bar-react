@@ -43,6 +43,14 @@ const reducer = (state, action) => {
         ...state,
         finalResult: [...state.finalResult, action.payload]
       }
+
+    // case 'SEE_PREVIOUS':
+    //   return {
+    //     ...state,
+    //     formValue: 
+    //   }
+    default:
+      return state
   }
 }
 
@@ -57,9 +65,10 @@ const App = () => {
 
   useEffect(() => {
     setProgress(Math.round((100*page)/6));
-  }, [page])
+    console.log(state);
+  }, [page, state])
 
-  const finalResultMap = state.finalResult.map(result => result + ' ');
+  const finalResultMap = state.finalResult.map(result => <p>{result.data}</p>);
   
 
   const nextPage = () => {
@@ -69,7 +78,10 @@ const App = () => {
       
       dispatch({
         type: 'ADD_DATA',
-        payload: formData
+        payload: {
+          data: formData,
+          page: page
+        }
       })
       
     }
@@ -79,6 +91,14 @@ const App = () => {
   const previousPage = () => {
     if(progress !== 0 && page !== 0){
       setPage(page-1);
+
+      // dispatch({
+      //   type: 'SEE_PREVIOUS',
+      //   payload: {
+      //     data: formData,
+      //     page: page
+      //   }
+      // })
     }
 
   }
