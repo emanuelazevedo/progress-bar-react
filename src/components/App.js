@@ -44,11 +44,6 @@ const reducer = (state, action) => {
         finalResult: [...state.finalResult, action.payload]
       }
 
-    // case 'SEE_PREVIOUS':
-    //   return {
-    //     ...state,
-    //     formValue: 
-    //   }
     default:
       return state
   }
@@ -91,14 +86,6 @@ const App = () => {
   const previousPage = () => {
     if(progress !== 0 && page !== 0){
       setPage(page-1);
-
-      // dispatch({
-      //   type: 'SEE_PREVIOUS',
-      //   payload: {
-      //     data: formData,
-      //     page: page
-      //   }
-      // })
     }
 
   }
@@ -108,12 +95,6 @@ const App = () => {
       <ProgressBar progress={progress} />
       <br />
       <div>
-        {/* <button onClick={() => setProgress(0)}>0%</button>
-        <button onClick={() => setProgress(5)}>5%</button>
-        <button onClick={() => setProgress(15)}>15%</button>
-        <button onClick={() => setProgress(50)}>50%</button>
-        <button onClick={() => setProgress(75)}>75%</button>
-        <button onClick={() => setProgress(100)}>100%</button> */}
         <button onClick={previousPage}>Previous Page</button>
         <button onClick={nextPage}>Next Page</button>
       </div>
