@@ -60,6 +60,19 @@ const ProgressBar = ({progress}) => {
     );
 };
 
+const FinishedResults = ({finalResultMap}) => {
+    return (
+      <div>
+          <div style={pageInfoSection}>
+            You finished!
+          </div>
+          <div style={mapSection}>
+            {finalResultMap}
+          </div>
+      </div>
+    );
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_DATA':
@@ -131,21 +144,14 @@ const App = () => {
             </div>
             <div>
               <input placeholder="Put data here" 
-              style={inputField}
-              onChange={ e => setFormData(e.target.value) }
+                style={inputField}
+                onChange={ e => setFormData(e.target.value) }
               />
             </div>
           </div>
         </>
         :
-        <div>
-          <div style={pageInfoSection}>
-            You finished!
-          </div>
-          <div style={mapSection}>
-            {finalResultMap}
-          </div>
-        </div>
+        <FinishedResults finalResultMap={finalResultMap} />
       }
       
     </div>
