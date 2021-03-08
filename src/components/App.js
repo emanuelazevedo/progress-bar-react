@@ -60,6 +60,28 @@ const ProgressBar = ({progress}) => {
     );
 };
 
+const InsertData = ({page, nextPage, previousPage, setFormData}) => {
+    return (
+      <>
+          <div style={buttonsSection}>
+            <button style={btn} onClick={previousPage}>Previous Page</button>
+            <button style={btn} onClick={nextPage}>Next Page</button>
+          </div>
+          <div style={pageInfoSection}>
+            <div >
+              You are in page: {page+1}/6.
+            </div>
+            <div>
+              <input placeholder="Put data here" 
+                style={inputField}
+                onChange={ e => setFormData(e.target.value) }
+              />
+            </div>
+          </div>
+        </>
+    );
+}
+
 const FinishedResults = ({finalResultMap}) => {
     return (
       <div>
@@ -133,23 +155,7 @@ const App = () => {
       <br />
       
       {page !== 6 ? 
-        <>
-          <div style={buttonsSection}>
-            <button style={btn} onClick={previousPage}>Previous Page</button>
-            <button style={btn} onClick={nextPage}>Next Page</button>
-          </div>
-          <div style={pageInfoSection}>
-            <div >
-              You are in page: {page+1}/6.
-            </div>
-            <div>
-              <input placeholder="Put data here" 
-                style={inputField}
-                onChange={ e => setFormData(e.target.value) }
-              />
-            </div>
-          </div>
-        </>
+        <InsertData page={page} nextPage={nextPage} previousPage={previousPage} setFormData={setFormData}  />
         :
         <FinishedResults finalResultMap={finalResultMap} />
       }
