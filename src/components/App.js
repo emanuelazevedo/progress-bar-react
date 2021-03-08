@@ -2,6 +2,7 @@ import React, {useState, useEffect, useReducer } from 'react';
 import '../index.css'
 
 
+/* CSS OF THE COMPONENTS */
 const containerStyle = {
     border: '1px solid silver',
     background: '#ededed',
@@ -49,6 +50,9 @@ const inputField = {
   marginTop: '50px'
 }
 
+/* CHILD COMPONENTS */
+
+//Progress Bar that show how along we are from the finishing filling the forms
 const ProgressBar = ({progress}) => {
     const state = `${progress}%`;
     return (
@@ -60,6 +64,7 @@ const ProgressBar = ({progress}) => {
     );
 };
 
+// Forms and buttons
 const InsertData = ({page, nextPage, previousPage, setFormData}) => {
     return (
       <>
@@ -82,6 +87,7 @@ const InsertData = ({page, nextPage, previousPage, setFormData}) => {
     );
 }
 
+// List of everything written when filling the forms
 const FinishedResults = ({finalResultMap}) => {
     return (
       <div>
@@ -95,6 +101,7 @@ const FinishedResults = ({finalResultMap}) => {
     );
 };
 
+/* REDUCER */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_DATA':
@@ -108,7 +115,7 @@ const reducer = (state, action) => {
   }
 }
 
-
+/* APP - PARENT*/
 const App = () => {
 
   const [state, dispatch] = useReducer(reducer, {finalResult: []});
@@ -123,7 +130,6 @@ const App = () => {
   }, [page, state])
 
   const finalResultMap = state.finalResult.map(result => <p>{result.data}</p>);
-  
 
   const nextPage = () => {
     
@@ -136,24 +142,20 @@ const App = () => {
           data: formData,
           page: page
         }
-      })
-      
+      })    
     }
-    
   }
 
   const previousPage = () => {
     if(progress !== 0 && page !== 0){
       setPage(page-1);
     }
-
   }
 
   return (
     <div>
       <ProgressBar progress={progress} />
-      <br />
-      
+      <br />   
       {page !== 6 ? 
         <InsertData page={page} nextPage={nextPage} previousPage={previousPage} setFormData={setFormData}  />
         :
