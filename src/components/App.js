@@ -1,9 +1,15 @@
 import React, {useState, useEffect, useReducer } from 'react';
+import '../index.css'
+
 
 const containerStyle = {
     border: '1px solid silver',
     background: '#ededed',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    width: '80%',
+    margin: 'auto',
+    marginTop: '40px'
+
 };
 
 const contentStyle = {
@@ -17,12 +23,30 @@ const contentStyle = {
 };
 
 const pageInfoSection = {
-  marginTop: '30px',
-  fontSize: '30px'
+    marginTop: '80px',
+    fontSize: '30px',
+    textAlign: 'center',
 }
 
 const mapSection = {
-    marginTop: '10px'
+    marginTop: '10px',
+    textAlign: 'center',
+}
+
+const buttonsSection = {
+    marginLeft: '130px',
+    marginTop: '5px'
+}
+
+const btn = {
+  width: '150px',
+  marginLeft: '20px',
+  height: '36px'
+}
+
+const inputField = {
+  width: '600px',
+  marginTop: '50px'
 }
 
 const ProgressBar = ({progress}) => {
@@ -94,21 +118,25 @@ const App = () => {
     <div>
       <ProgressBar progress={progress} />
       <br />
-      <div>
-        <button onClick={previousPage}>Previous Page</button>
-        <button onClick={nextPage}>Next Page</button>
-      </div>
+      
       {page !== 6 ? 
-        <div style={pageInfoSection}>
-          <div >
-            You are in page: {page+1}/6.
+        <>
+          <div style={buttonsSection}>
+            <button style={btn} onClick={previousPage}>Previous Page</button>
+            <button style={btn} onClick={nextPage}>Next Page</button>
           </div>
-          <div>
-            <input placeholder="Put data here" 
-            onChange={ e => setFormData(e.target.value) }
-            />
+          <div style={pageInfoSection}>
+            <div >
+              You are in page: {page+1}/6.
+            </div>
+            <div>
+              <input placeholder="Put data here" 
+              style={inputField}
+              onChange={ e => setFormData(e.target.value) }
+              />
+            </div>
           </div>
-        </div>
+        </>
         :
         <div>
           <div style={pageInfoSection}>
